@@ -96,4 +96,17 @@
     }
 
     function downloadVCard() {
-      const vcardData = `BEGIN:VCARD
+      const vcardData = `BEGIN:VCARD\nVERSION:3.0\nN:Quiroga Gutierrez;Helber Yesid;;;\nFN:HELBER YESID QUIROGA GUTIERREZ\nORG:CONSTRUCTORA MANZANILLO S.A. de C.V.\nTITLE:Proyect Manager\nTEL;TYPE=CELL:+573126755922\nEMAIL:helber.q@comsamarine.com\nADR;TYPE=WORK:;;Buenaventura - Colombia;;;;\nEND:VCARD`;
+
+      const blob = new Blob([vcardData], { type: 'text/vcard;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Helber_Quiroga_COMSA.vcf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  </script>
+</body>
+</html>
