@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarjeta Digital COMSA Marine</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: #f0f4f8; color: #333; padding: 15px; min-height: 100vh; display: flex; justify-content: center; align-items: center; }
+    .container { max-width: 480px; width: 100%; background: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; }
+    .header h1 { color: #0b4a8b; font-size: 18px; margin-bottom: 5px; }
+    .header p { color: #666; font-size: 12px; margin-bottom: 15px; }
+    
+    .card-graphic { border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; margin-bottom: 20px; background: #fff; }
+    .card-graphic img { width: 100%; height: auto; display: block; }
+    
+    .btn { width: 100%; padding: 14px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; margin-bottom: 10px; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    .btn-vcard { background: #22c55e; color: white; font-size: 16px; }
+    .btn-call { background: #0b4a8b; color: white; }
+    .btn-wa { background: #25d366; color: white; }
+    .btn-mail { background: #1e293b; color: white; }
+    .btn-map { background: #0284c7; color: white; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .qr-section { margin-top: 20px; border-top: 2px dashed #cbd5e1; padding-top: 15px; }
+    #qrcode { display: flex; justify-content: center; margin: 10px 0; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <h1>CONSTRUCTORA MANZANILLO S.A. de C.V.</h1>
+      <p>Tarjeta de Presentación Digital</p>
+    </div>
+
+    <!-- IMAGEN DE LA TARJETA -->
+    <div class="card-graphic">
+      <img src="DORSO_VCARD_4.jpg" alt="Tarjeta de Presentación">
+    </div>
+
+    <!-- BOTONES INTERACTIVOS -->
+    <button class="btn btn-vcard" onclick="downloadVCard()">📇 Guardar Contacto en el Móvil (.vcf)</button>
+
+    <div class="grid-2">
+      <a href="tel:+573000000000" class="btn btn-call">📞 Llamar</a>
+      <a href="https://wa.me/573000000000" target="_blank" class="btn btn-wa">💬 WhatsApp</a>
+    </div>
+
+    <div class="grid-2">
+      <a href="mailto:andrea.riascos@comsamarine.com" class="btn btn-mail">✉️ Correo</a>
+      <a href="https://maps.google.com/?q=Buenaventura+Colombia" target="_blank" class="btn btn-map">📍 Ubicación</a>
+    </div>
+
+    <!-- CÓDIGO QR DIRECTO -->
+    <div class="qr-section">
+      <strong style="font-size: 13px; color: #0b4a8b;">Escanea para guardar el contacto:</strong>
+      <div id="qrcode"></div>
+      <p style="font-size:11px; color:#666; margin-top:5px;">Este código QR integra directamente los datos de contacto en el celular.</p>
+    </div>
+  </div>
+
+  <script>
+    // Datos vCard limpios para lectura instantánea al escanear
+    const vcardData = `BEGIN:VCARD
+VERSION:3.0
+N:Riascos Salazar;Andrea Carolina;;;
+FN:ANDREA CAROLINA RIASCOS SALAZAR
+ORG:CONSTRUCTORA MANZANILLO S.A. de C.V.
+TITLE:Coordinadora Social
+TEL;TYPE=CELL:+573000000000
+EMAIL:andrea.riascos@comsamarine.com
+ADR;TYPE=WORK:;;Buenaventura - Colombia;;;;
+END:VCARD`;
+
+    new QRCode(document.getElementById("qrcode"), {
+      text: vcardData,
+      width: 160,
+      height: 160,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M
+    });
+
+    function downloadVCard() {
+      const blob = new Blob([vcardData], { type: 'text/vcard;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Andrea_Riascos_COMSA.vcf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  </script>
+</body>
+</html>
