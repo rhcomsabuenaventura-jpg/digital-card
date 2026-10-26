@@ -8,12 +8,11 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     body { background-color: #f0f4f8; color: #333; padding: 15px; min-height: 100vh; }
+    .container { max-width: 480px; margin: 0 auto; background: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
     .header { text-align: center; margin-bottom: 15px; }
     .header h1 { color: #0b4a8b; font-size: 18px; }
     .header p { color: #666; font-size: 12px; }
     
-    .container { max-width: 480px; margin: 0 auto; background: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-
     .card-graphic { border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; margin-bottom: 20px; background: #fff; width: 100%; }
     .card-graphic img { width: 100%; height: auto; display: block; }
     
@@ -23,14 +22,15 @@
     .btn-wa { background: #25d366; color: white; }
     .btn-mail { background: #1e293b; color: white; }
     .btn-map { background: #0284c7; color: white; }
+    .btn-download-qr { background: #475569; color: white; margin-top: 10px; font-size: 13px; padding: 10px; }
 
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-    .admin-panel { margin-top: 30px; border-top: 2px dashed #cbd5e1; padding-top: 20px; }
+    .admin-panel { margin-top: 25px; border-top: 2px dashed #cbd5e1; padding-top: 15px; background: #f8fafc; padding: 15px; border-radius: 12px; }
     .form-group { margin-bottom: 10px; }
     .form-group label { display: block; font-size: 11px; font-weight: bold; color: #475569; margin-bottom: 3px; }
     .form-group input { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; }
-    .qr-box { text-align: center; margin-top: 15px; padding: 15px; background: #f8fafc; border-radius: 10px; border: 1px solid #e2e8f0; }
+    .qr-box { text-align: center; margin-top: 15px; padding: 15px; background: #fff; border-radius: 10px; border: 1px solid #e2e8f0; }
     #qrcode { display: flex; justify-content: center; margin: 10px 0; }
   </style>
 </head>
@@ -39,15 +39,15 @@
   <div class="container">
     <div class="header">
       <h1>CONSTRUCTORA MANZANILLO S.A. de C.V.</h1>
-      <p>Contacto Oficial</p>
+      <p>Tarjeta de Presentación Digital</p>
     </div>
 
-    <!-- TARJETA GRAFICA CON TU IMAGEN REAL -->
+    <!-- IMAGEN DE LA TARJETA -->
     <div class="card-graphic">
-      <img id="cardImg" src="DORSO_VCARD_4.jpg" alt="Tarjeta de Presentación" onerror="this.onerror=null; this.src='DORSO_VCARD_4.png';">
+      <img id="cardImg" src="DORSO_VCARD_HELBER_QUIROGA.jpg" alt="Tarjeta de Presentación" onerror="this.onerror=null; this.src='DORSO_VCARD_4.png';">
     </div>
 
-    <!-- BOTONES DE ACCIÓN -->
+    <!-- BOTONES INTERACTIVOS -->
     <button class="btn btn-vcard" onclick="downloadVCard()">📇 Guardar Contacto en el Móvil (.vcf)</button>
 
     <div class="grid-2">
@@ -60,72 +60,71 @@
       <a id="btnMap" href="https://maps.google.com/?q=Buenaventura+Colombia" target="_blank" class="btn btn-map">📍 Ubicación</a>
     </div>
 
-    <!-- PANEL ADMIN -->
+    <!-- PANEL DE CREACIÓN RÁPIDA DE LOS 10 QR -->
     <div class="admin-panel" id="adminPanel">
-      <h3 style="font-size:14px; color:#0b4a8b; margin-bottom:10px;">⚙️ Generador de QR para esta Tarjeta Web</h3>
+      <h3 style="font-size:13px; color:#0b4a8b; margin-bottom:8px;">⚙️ Generador de QR por Trabajador</h3>
+      <p style="font-size: 11px; color: #555; margin-bottom: 10px;">Cambia los datos aquí para generar y descargar el QR individual de cada empleado:</p>
       
       <div class="form-group">
-        <label>URL de GitHub Pages:</label>
-        <input type="text" id="baseUrl" value="https://rhcomsabuenaventura-jpg.github.io/digital-card/" oninput="generateWebQR()">
+        <label>Nombre Completo:</label>
+        <input type="text" id="cfgName" value="HELBER YESID QUIROGA GUTIERREZ" oninput="generateWebQR()">
       </div>
       <div class="form-group">
-        <label>Nombre:</label>
-        <input type="text" id="cfgName" value="ANDREA CAROLINA RIASCOS SALAZAR" oninput="generateWebQR()">
+        <label>Cargo / Rol:</label>
+        <input type="text" id="cfgRole" value="Proyect Manager" oninput="generateWebQR()">
       </div>
       <div class="form-group">
-        <label>Cargo:</label>
-        <input type="text" id="cfgRole" value="Coordinadora Social" oninput="generateWebQR()">
+        <label>Teléfono (con indicador, ej: +573126755922):</label>
+        <input type="text" id="cfgPhone" value="+573126755922" oninput="generateWebQR()">
       </div>
       <div class="form-group">
-        <label>Teléfono:</label>
-        <input type="text" id="cfgPhone" value="+573000000000" oninput="generateWebQR()">
-      </div>
-      <div class="form-group">
-        <label>Correo:</label>
-        <input type="email" id="cfgEmail" value="andrea.riascos@comsamarine.com" oninput="generateWebQR()">
+        <label>Correo Electrónico:</label>
+        <input type="email" id="cfgEmail" value="helber.q@comsamarine.com" oninput="generateWebQR()">
       </div>
 
       <div class="qr-box">
-        <strong>Código QR Web Limpio (Para Escanear):</strong>
+        <strong style="font-size: 12px; color: #0b4a8b;">Código QR Individual:</strong>
         <div id="qrcode"></div>
-        <p style="font-size:11px; color:#666; margin-top:5px;">Este QR abrirá directamente la página web en el celular.</p>
+        <button class="btn btn-download-qr" onclick="downloadQRImage()">📥 Descargar este QR (.png)</button>
       </div>
     </div>
   </div>
 
   <script>
     let personData = {
-      name: "ANDREA CAROLINA RIASCOS SALAZAR",
-      role: "Coordinadora Social",
-      phone: "+573000000000",
-      email: "andrea.riascos@comsamarine.com",
+      name: "HELBER YESID QUIROGA GUTIERREZ",
+      role: "Proyect Manager",
+      phone: "+573126755922",
+      email: "helber.q@comsamarine.com",
       company: "CONSTRUCTORA MANZANILLO S.A. de C.V.",
       loc: "Buenaventura - Colombia"
     };
 
     function loadFromUrlParams() {
       const params = new URLSearchParams(window.location.search);
-      if (params.has('name')) personData.name = params.get('name');
-      if (params.has('role')) personData.role = params.get('role');
-      if (params.has('phone')) personData.phone = params.get('phone');
-      if (params.has('email')) personData.email = params.get('email');
+      if (params.has('name')) {
+        personData.name = params.get('name');
+        personData.role = params.get('role') || "";
+        personData.phone = params.get('phone') || "";
+        personData.email = params.get('email') || "";
+
+        // Si la página se abre desde un QR escaneado, ocultamos el panel de administración
+        document.getElementById('adminPanel').style.display = 'none';
+      }
 
       document.getElementById('btnCall').href = `tel:${personData.phone}`;
       document.getElementById('btnWa').href = `https://wa.me/${personData.phone.replace(/[^0-9]/g, '')}`;
       document.getElementById('btnEmail').href = `mailto:${personData.email}`;
-
-      if (params.has('name')) {
-        document.getElementById('adminPanel').style.display = 'none';
-      }
     }
 
     function generateWebQR() {
-      const baseUrl = document.getElementById('baseUrl').value.trim();
+      const baseUrl = "https://rhcomsabuenaventura-jpg.github.io/digital-card/";
       const name = encodeURIComponent(document.getElementById('cfgName').value);
       const role = encodeURIComponent(document.getElementById('cfgRole').value);
       const phone = encodeURIComponent(document.getElementById('cfgPhone').value);
       const email = encodeURIComponent(document.getElementById('cfgEmail').value);
 
+      // Aquí incluimos los parámetros para que el QR apunte directo a la tarjeta específica del trabajador
       const fullWebUrl = `${baseUrl}?name=${name}&role=${role}&phone=${phone}&email=${email}`;
 
       document.getElementById('qrcode').innerHTML = "";
@@ -139,10 +138,27 @@
       });
     }
 
-    function downloadVCard() {
-      const vcardText = `BEGIN:VCARD\nVERSION:3.0\nN:;${personData.name};;;\nFN:${personData.name}\nORG:${personData.company}\nTITLE:${personData.role}\nTEL;TYPE=CELL:${personData.phone}\nEMAIL:${personData.email}\nADR;TYPE=WORK:;;${personData.loc};;;;\nEND:VCARD`;
+    function downloadQRImage() {
+      const img = document.querySelector("#qrcode img");
+      const canvas = document.querySelector("#qrcode canvas");
+      let imgUrl = img ? img.src : (canvas ? canvas.toDataURL("image/png") : "");
 
-      const blob = new Blob([vcardText], { type: 'text/vcard;charset=utf-8;' });
+      if (imgUrl) {
+        const a = document.createElement("a");
+        a.href = imgUrl;
+        a.download = `QR_${document.getElementById('cfgName').value.replace(/\s+/g, '_')}.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      } else {
+        alert("Espera un momento a que cargue el QR.");
+      }
+    }
+
+    function downloadVCard() {
+      const vcardData = `BEGIN:VCARD\nVERSION:3.0\nN:;${personData.name};;;\nFN:${personData.name}\nORG:${personData.company}\nTITLE:${personData.role}\nTEL;TYPE=CELL:${personData.phone}\nEMAIL:${personData.email}\nADR;TYPE=WORK:;;${personData.loc};;;;\nEND:VCARD`;
+
+      const blob = new Blob([vcardData], { type: 'text/vcard;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
