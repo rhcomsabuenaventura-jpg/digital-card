@@ -97,7 +97,7 @@
     function downloadVCard() {
       const vcardData = `BEGIN:VCARD\nVERSION:3.0\nN:Riascos Salazar;Andrea Carolina;;;\nFN:ANDREA CAROLINA RIASCOS SALAZAR\nORG:CONSTRUCTORA MANZANILLO S.A. de C.V.\nTITLE:Coordinadora Social\nTEL;TYPE=CELL:+573000000000\nEMAIL:andrea.riascos@comsamarine.com\nADR;TYPE=WORK:;;Buenaventura - Colombia;;;;\nEND:VCARD`;
 
-      const blob = new Blob magicBlob([vcardData], { type: 'text/vcard;charset=utf-8;' });
+      const blob = new Blob([vcardData], { type: 'text/vcard;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
