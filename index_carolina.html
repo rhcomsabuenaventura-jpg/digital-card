@@ -3,17 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tarjeta Digital COMSA Marine</title>
+  <title>Tarjeta Digital - Andrea Carolina Riascos | COMSA Marine</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background-color: #f0f4f8; color: #333; padding: 15px; min-height: 100vh; }
-    .header { text-align: center; margin-bottom: 15px; }
-    .header h1 { color: #0b4a8b; font-size: 18px; }
-    .header p { color: #666; font-size: 12px; }
+    body { background-color: #f0f4f8; color: #333; padding: 15px; min-height: 100vh; display: flex; justify-content: center; align-items: center; }
+    .container { max-width: 480px; width: 100%; background: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; }
+    .header h1 { color: #0b4a8b; font-size: 18px; margin-bottom: 5px; }
+    .header p { color: #666; font-size: 12px; margin-bottom: 15px; }
     
-    .container { max-width: 480px; margin: 0 auto; background: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-
     .card-graphic { border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; margin-bottom: 20px; background: #fff; width: 100%; }
     .card-graphic img { width: 100%; height: auto; display: block; }
     
@@ -23,14 +21,11 @@
     .btn-wa { background: #25d366; color: white; }
     .btn-mail { background: #1e293b; color: white; }
     .btn-map { background: #0284c7; color: white; }
+    .btn-download-qr { background: #475569; color: white; margin-top: 10px; font-size: 13px; padding: 10px; }
 
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-    .admin-panel { margin-top: 30px; border-top: 2px dashed #cbd5e1; padding-top: 20px; }
-    .form-group { margin-bottom: 10px; }
-    .form-group label { display: block; font-size: 11px; font-weight: bold; color: #475569; margin-bottom: 3px; }
-    .form-group input { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; }
-    .qr-box { text-align: center; margin-top: 15px; padding: 15px; background: #f8fafc; border-radius: 10px; border: 1px solid #e2e8f0; }
+    .qr-section { margin-top: 20px; border-top: 2px dashed #cbd5e1; padding-top: 15px; }
     #qrcode { display: flex; justify-content: center; margin: 10px 0; }
   </style>
 </head>
@@ -39,123 +34,78 @@
   <div class="container">
     <div class="header">
       <h1>CONSTRUCTORA MANZANILLO S.A. de C.V.</h1>
-      <p>Contacto Oficial</p>
+      <p>Tarjeta de Presentación Digital</p>
     </div>
 
-    <!-- TARJETA GRAFICA CON TU IMAGEN REAL -->
+    <!-- IMAGEN DE CAROLINA -->
     <div class="card-graphic">
-      <img id="cardImg" src="DORSO_VCARD_4.jpg" alt="Tarjeta de Presentación" onerror="this.onerror=null; this.src='DORSO_VCARD_4.png';">
+      <img src="DORSO_VCARD_CAROLINA_RIASCOS.jpg" alt="Tarjeta de Carolina Riascos" onerror="this.onerror=null; this.src='DORSO_VCARD_4.png';">
     </div>
 
-    <!-- BOTONES DE ACCIÓN -->
+    <!-- BOTONES INTERACTIVOS CON SUS DATOS -->
     <button class="btn btn-vcard" onclick="downloadVCard()">📇 Guardar Contacto en el Móvil (.vcf)</button>
 
     <div class="grid-2">
-      <a id="btnCall" href="#" class="btn btn-call">📞 Llamar</a>
-      <a id="btnWa" href="#" target="_blank" class="btn btn-wa">💬 WhatsApp</a>
+      <a href="tel:+573000000000" class="btn btn-call">📞 Llamar</a>
+      <a href="https://wa.me/573000000000" target="_blank" class="btn btn-wa">💬 WhatsApp</a>
     </div>
 
     <div class="grid-2">
-      <a id="btnEmail" href="#" class="btn btn-mail">✉️ Correo</a>
-      <a id="btnMap" href="https://maps.google.com/?q=Buenaventura+Colombia" target="_blank" class="btn btn-map">📍 Ubicación</a>
+      <a href="mailto:andrea.riascos@comsamarine.com" class="btn btn-mail">✉️ Correo</a>
+      <a href="https://maps.google.com/?q=Buenaventura+Colombia" target="_blank" class="btn btn-map">📍 Ubicación</a>
     </div>
 
-    <!-- PANEL ADMIN -->
-    <div class="admin-panel" id="adminPanel">
-      <h3 style="font-size:14px; color:#0b4a8b; margin-bottom:10px;">⚙️ Generador de QR para esta Tarjeta Web</h3>
-      
-      <div class="form-group">
-        <label>URL de GitHub Pages:</label>
-        <input type="text" id="baseUrl" value="https://rhcomsabuenaventura-jpg.github.io/digital-card/" oninput="generateWebQR()">
-      </div>
-      <div class="form-group">
-        <label>Nombre:</label>
-        <input type="text" id="cfgName" value="ANDREA CAROLINA RIASCOS SALAZAR" oninput="generateWebQR()">
-      </div>
-      <div class="form-group">
-        <label>Cargo:</label>
-        <input type="text" id="cfgRole" value="Coordinadora Social" oninput="generateWebQR()">
-      </div>
-      <div class="form-group">
-        <label>Teléfono:</label>
-        <input type="text" id="cfgPhone" value="+573000000000" oninput="generateWebQR()">
-      </div>
-      <div class="form-group">
-        <label>Correo:</label>
-        <input type="email" id="cfgEmail" value="andrea.riascos@comsamarine.com" oninput="generateWebQR()">
-      </div>
-
-      <div class="qr-box">
-        <strong>Código QR Web Limpio (Para Escanear):</strong>
-        <div id="qrcode"></div>
-        <p style="font-size:11px; color:#666; margin-top:5px;">Este QR abrirá directamente la página web en el celular.</p>
-      </div>
+    <!-- SECCIÓN CÓDIGO QR -->
+    <div class="qr-section">
+      <strong style="font-size: 13px; color: #0b4a8b;">Código QR de esta Tarjeta:</strong>
+      <div id="qrcode"></div>
+      <button class="btn btn-download-qr" onclick="downloadQRImage()">📥 Descargar Imagen del QR (.png)</button>
+      <p style="font-size:11px; color:#666; margin-top:5px;">Escanear para abrir la tarjeta de Andrea Carolina Riascos</p>
     </div>
   </div>
 
   <script>
-    let personData = {
-      name: "ANDREA CAROLINA RIASCOS SALAZAR",
-      role: "Coordinadora Social",
-      phone: "+573000000000",
-      email: "andrea.riascos@comsamarine.com",
-      company: "CONSTRUCTORA MANZANILLO S.A. de C.V.",
-      loc: "Buenaventura - Colombia"
-    };
+    // URL exacta para el archivo de Carolina en GitHub Pages
+    const webUrl = "https://rhcomsabuenaventura-jpg.github.io/digital-card/index_carolina.html";
 
-    function loadFromUrlParams() {
-      const params = new URLSearchParams(window.location.search);
-      if (params.has('name')) personData.name = params.get('name');
-      if (params.has('role')) personData.role = params.get('role');
-      if (params.has('phone')) personData.phone = params.get('phone');
-      if (params.has('email')) personData.email = params.get('email');
+    new QRCode(document.getElementById("qrcode"), {
+      text: webUrl,
+      width: 170,
+      height: 170,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M
+    });
 
-      document.getElementById('btnCall').href = `tel:${personData.phone}`;
-      document.getElementById('btnWa').href = `https://wa.me/${personData.phone.replace(/[^0-9]/g, '')}`;
-      document.getElementById('btnEmail').href = `mailto:${personData.email}`;
+    function downloadQRImage() {
+      const img = document.querySelector("#qrcode img");
+      const canvas = document.querySelector("#qrcode canvas");
+      let imgUrl = img ? img.src : (canvas ? canvas.toDataURL("image/png") : "");
 
-      if (params.has('name')) {
-        document.getElementById('adminPanel').style.display = 'none';
+      if (imgUrl) {
+        const a = document.createElement("a");
+        a.href = imgUrl;
+        a.download = "QR_Carolina_Riascos.png";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      } else {
+        alert("Espera un momento a que cargue el QR.");
       }
     }
 
-    function generateWebQR() {
-      const baseUrl = document.getElementById('baseUrl').value.trim();
-      const name = encodeURIComponent(document.getElementById('cfgName').value);
-      const role = encodeURIComponent(document.getElementById('cfgRole').value);
-      const phone = encodeURIComponent(document.getElementById('cfgPhone').value);
-      const email = encodeURIComponent(document.getElementById('cfgEmail').value);
-
-      const fullWebUrl = `${baseUrl}?name=${name}&role=${role}&phone=${phone}&email=${email}`;
-
-      document.getElementById('qrcode').innerHTML = "";
-      new QRCode(document.getElementById("qrcode"), {
-        text: fullWebUrl,
-        width: 160,
-        height: 160,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.M
-      });
-    }
-
     function downloadVCard() {
-      const vcardText = `BEGIN:VCARD\nVERSION:3.0\nN:;${personData.name};;;\nFN:${personData.name}\nORG:${personData.company}\nTITLE:${personData.role}\nTEL;TYPE=CELL:${personData.phone}\nEMAIL:${personData.email}\nADR;TYPE=WORK:;;${personData.loc};;;;\nEND:VCARD`;
+      const vcardData = `BEGIN:VCARD\nVERSION:3.0\nN:Riascos Salazar;Andrea Carolina;;;\nFN:ANDREA CAROLINA RIASCOS SALAZAR\nORG:CONSTRUCTORA MANZANILLO S.A. de C.V.\nTITLE:Coordinadora Social\nTEL;TYPE=CELL:+573000000000\nEMAIL:andrea.riascos@comsamarine.com\nADR;TYPE=WORK:;;Buenaventura - Colombia;;;;\nEND:VCARD`;
 
-      const blob = new Blob([vcardText], { type: 'text/vcard;charset=utf-8;' });
+      const blob = new Blob([vcardData], { type: 'text/vcard;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `${personData.name}.vcf`;
+      a.download = 'Andrea_Riascos_COMSA.vcf';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
     }
-
-    window.onload = function() {
-      loadFromUrlParams();
-      generateWebQR();
-    };
   </script>
 </body>
 </html>
