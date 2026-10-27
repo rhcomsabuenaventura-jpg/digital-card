@@ -39,10 +39,10 @@
 
     <!-- IMAGEN DE CAROLINA -->
     <div class="card-graphic">
-      <img src="DORSO_VCARD_CAROLINA_RIASCOS.jpg" alt="Tarjeta de Carolina Riascos" onerror="this.onerror=null; this.src='DORSO_VCARD_4.png';">
+      <img src="DORSO_VCARD_CAROLINA_RIASCOS.JPG" alt="Tarjeta de Carolina Riascos" onerror="this.onerror=null; this.src='DORSO_VCARD_4.png';">
     </div>
 
-    <!-- BOTONES INTERACTIVOS CON SUS DATOS -->
+    <!-- BOTONES INTERACTIVOS -->
     <button class="btn btn-vcard" onclick="downloadVCard()">📇 Guardar Contacto en el Móvil (.vcf)</button>
 
     <div class="grid-2">
@@ -55,7 +55,7 @@
       <a href="https://maps.google.com/?q=Buenaventura+Colombia" target="_blank" class="btn btn-map">📍 Ubicación</a>
     </div>
 
-    <!-- SECCIÓN CÓDIGO QR -->
+    <!-- CÓDIGO QR DE LA TARJETA -->
     <div class="qr-section">
       <strong style="font-size: 13px; color: #0b4a8b;">Código QR de esta Tarjeta:</strong>
       <div id="qrcode"></div>
@@ -65,7 +65,7 @@
   </div>
 
   <script>
-    // URL exacta para el archivo de Carolina en GitHub Pages
+    // URL EXACTA QUE ABRE ESTE ARCHIVO
     const webUrl = "https://rhcomsabuenaventura-jpg.github.io/digital-card/index_carolina.html";
 
     new QRCode(document.getElementById("qrcode"), {
@@ -97,7 +97,7 @@
     function downloadVCard() {
       const vcardData = `BEGIN:VCARD\nVERSION:3.0\nN:Riascos Salazar;Andrea Carolina;;;\nFN:ANDREA CAROLINA RIASCOS SALAZAR\nORG:CONSTRUCTORA MANZANILLO S.A. de C.V.\nTITLE:Coordinadora Social\nTEL;TYPE=CELL:+573000000000\nEMAIL:andrea.riascos@comsamarine.com\nADR;TYPE=WORK:;;Buenaventura - Colombia;;;;\nEND:VCARD`;
 
-      const blob = new Blob([vcardData], { type: 'text/vcard;charset=utf-8;' });
+      const blob = new Blob magicBlob([vcardData], { type: 'text/vcard;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
