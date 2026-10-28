@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarjeta Digital - Gustavo Ospina Leon | COMSA Marine</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: #f0f4f8; color: #333; padding: 15px; min-height: 100vh; display: flex; justify-content: center; align-items: center; }
+    .container { max-width: 480px; width: 100%; background: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; }
+    .header h1 { color: #0b4a8b; font-size: 18px; margin-bottom: 5px; }
+    .header p { color: #666; font-size: 12px; margin-bottom: 15px; }
+    
+    .card-graphic { border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; margin-bottom: 20px; background: #fff; width: 100%; }
+    .card-graphic img { width: 100%; height: auto; display: block; }
+    
+    .btn { width: 100%; padding: 14px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; margin-bottom: 10px; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    .btn-vcard { background: #22c55e; color: white; font-size: 16px; }
+    .btn-call { background: #0b4a8b; color: white; }
+    .btn-wa { background: #25d366; color: white; }
+    .btn-mail { background: #1e293b; color: white; }
+    .btn-map { background: #0284c7; color: white; }
+    .btn-download-qr { background: #475569; color: white; margin-top: 10px; font-size: 13px; padding: 10px; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .qr-section { margin-top: 20px; border-top: 2px dashed #cbd5e1; padding-top: 15px; }
+    #qrcode { display: flex; justify-content: center; margin: 10px 0; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <h1>CONSTRUCTORA MANZANILLO S.A. de C.V.</h1>
+      <p>Tarjeta de Presentación Digital</p>
+    </div>
+
+    <!-- IMAGEN DE GUSTAVO -->
+    <div class="card-graphic">
+      <img src="DORSO_VCARD_GUSTAVO_OSPINA" alt="Tarjeta de Gustavo Ospina Leon">
+    </div>
+
+    <!-- BOTONES INTERACTIVOS -->
+    <button class="btn btn-vcard" onclick="downloadVCard()">📇 Guardar Contacto en el Móvil (.vcf)</button>
+
+    <div class="grid-2">
+      <a href="tel:+573000000000" class="btn btn-call">📞 Llamar</a>
+      <a href="https://wa.me/573000000000" target="_blank" class="btn btn-wa">💬 WhatsApp</a>
+    </div>
+
+    <div class="grid-2">
+      <a href="mailto:gustavo@comsamarine.com" class="btn btn-mail">✉️ Correo</a>
+      <a href="https://maps.google.com/?q=Buenaventura+Colombia" target="_blank" class="btn btn-map">📍 Ubicación</a>
+    </div>
+
+    <!-- CÓDIGO QR DE LA TARJETA -->
+    <div class="qr-section">
+      <strong style="font-size: 13px; color: #0b4a8b;">Código QR de esta Tarjeta:</strong>
+      <div id="qrcode"></div>
+      <button class="btn btn-download-qr" onclick="downloadQRImage()">📥 Descargar Imagen del QR (.png)</button>
+      <p style="font-size:11px; color:#666; margin-top:5px;">Escanear para abrir la tarjeta de Gustavo Ospina Leon</p>
+    </div>
+  </div>
+
+  <script>
+    const webUrl = "https://rhcomsabuenaventura-jpg.github.io/digital-card/index_gustavo.html";
+
+    new QRCode(document.getElementById("qrcode"), {
+      text: webUrl,
+      width: 170,
+      height: 170,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M
+    });
+
+    function downloadQRImage() {
+      const img = document.querySelector("#qrcode img");
+      const canvas = document.querySelector("#qrcode canvas");
+      let imgUrl = img ? img.src : (canvas ? canvas.toDataURL("image/png") : "");
+
+      if (imgUrl) {
+        const a = document.createElement("a");
+        a.href = imgUrl;
+        a.download = "QR_Gustavo_Ospina.png";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      } else {
+        alert("Espera un momento a que cargue el QR.");
+      }
+    }
+
+    function downloadVCard() {
+      const vcardData = `BEGIN:VCARD\nVERSION:3.0\nN:Ospina Leon;Gustavo;;;\nFN:GUSTAVO OSPINA LEON\nORG:CONSTRUCTORA MANZANILLO S.A. de C.V.\nTITLE:Project Director\nTEL;TYPE=CELL:+573000000000\nEMAIL:gustavo@comsamarine.com\nADR;TYPE=WORK:;;Buenaventura - Colombia;;;;\nEND:VCARD`;
+
+      const blob = new Blob([vcardData], { type: 'text/vcard;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Gustavo_Ospina_COMSA.vcf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  </script>
+</body>
+</html>
